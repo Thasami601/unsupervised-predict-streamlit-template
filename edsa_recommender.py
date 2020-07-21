@@ -27,7 +27,7 @@
 """
 # Streamlit dependencies
 import streamlit as st
-
+from PIL import Image
 # Data handling dependencies
 import pandas as pd
 import numpy as np
@@ -45,7 +45,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
+    page_options = ["About the app","Recommender System","Solution Overview"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -100,6 +100,14 @@ def main():
     # -------------------------------------------------------------------
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
+    if page_selection == "About the app":
+        st.title("About The App")
+        st.markdown("The application is about recomender systems. It recomends movies to a user based on two types of recomender system. Which are Collaborative-filtering and Content-Based filtering. Below is a brief explanation of the recomender systems")		
+        st.subheader("Recommender Systems")
+        st.image("resources/imgs/image.PNG")
+        st.markdown("**Collaborative-filtering:** In collaborative-filtering items are recommended, for example movies, based on how similar your user profile is to other users’, finds the users that are most similar to you and then recommends items that they have shown a preference for. This method suffers from the so-called cold-start problem: If there is a new movie, no-one else would’ve yet liked or watched it, so you’re not going to have this in your list of recommended movies, even if you’d love it.")
+        st.markdown("**Content-based filtering:** This method uses attributes of the content to recommend similar content. It doesn’t have a cold-start problem because it works through attributes or tags of the content, such as actors, genres or directors, so that new movies can be recommended right away.")        
+		
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
