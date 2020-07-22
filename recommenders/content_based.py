@@ -44,6 +44,7 @@ imdb = pd.read_csv('resources/data/imdb_data.csv')
 movies.dropna(inplace=True)
 
 
+
 # !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
 # You are, however, encouraged to change its content.  
 def content_model(movie_list,top_n=10):
@@ -87,26 +88,38 @@ def content_model(movie_list,top_n=10):
 
 
     # Get the index of the movie that matches the title
-    idx = indices[movie_list]
+    idx1 = indices[movie_list][0]
+    idx2 = indices[movie_list][1]
+    idx3 = indices[movie_list][3]
 
 
 
     # Get the pairwsie similarity scores of all movies with that movie
-    sim_scores = list(enumerate(cosine_sim[idx]))
+    sim_scores1 = list(enumerate(cosine_sim[idx1]))
+    sim_scores2 = list(enumerate(cosine_sim[idx2]))
+    sim_scores3 = list(enumerate(cosine_sim[idx3]))
 
 
     # Sort the movies based on the similarity scores
-    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+    sim_scores1 = sorted(sim_scores1, key=lambda x: x[1], reverse=True)
+    sim_scores2 = sorted(sim_scores2, key=lambda x: x[1], reverse=True)
+    sim_scores3 = sorted(sim_scores3, key=lambda x: x[1], reverse=True)
 
 
     # Get the scores of the 10 most similar movies
-    sim_scores = sim_scores[0:top_n]
+    sim_scores1 = sim_scores1[0:top_n-6]
+    sim_scores2 = sim_scores2[0:top_n-7]
+    sim_scores3 = sim_scores3[0:top_n-7]
     
 
     # Get the movie indices
-    movie_indices = [i[0] for i in sim_scores]
+    movie_indices1 = [i[0] for i in sim_scores1]
+    movie_indices2 = [i[0] for i in sim_scores2]
+    movie_indices3 = [i[0] for i in sim_scores3]
     
-
+    result=[merge_ratings_movies['title'].iloc[movie_indices1],merge_ratings_movies['title'].iloc[movie_indices2],merge_ratings_movies['title'].iloc[movie_indices3]]
+    #merge_ratings_movies['title'].iloc[movie_indices2][5:0]
+    recommended_movies = pd.concat(result,axis=0)
     # Return the top 10 most similar movies
-    return merge_ratings_movies['title'].iloc[movie_indices]
+    return recommended_movies
    
