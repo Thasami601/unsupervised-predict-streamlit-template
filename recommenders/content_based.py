@@ -122,4 +122,4 @@ def content_model(movie_list,top_n=10):
     recommended_movies = pd.concat(result,axis=0)
     # Return the top 10 most similar movies
     return recommended_movies
-   
+content_model(['Toy Story (1995)','Jumanji (1995)','Grumpier Old Men (1995)'],top_n=10)   
