@@ -59,10 +59,10 @@ def content_model(movie_list,top_n=10):
 
     #merge_ratings_movies = merge_ratings_movies.drop('timestamp', axis=1)
     # Import linear_kernel
-    #from sklearn.metrics.pairwise import linear_kernel
+    from sklearn.metrics.pairwise import linear_kernel
 
     # Compute the cosine similarity matrix
-    lin_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
+    lin_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
 
     indices = pd.Series(data['title']).drop_duplicates()
     # getting the indexes
