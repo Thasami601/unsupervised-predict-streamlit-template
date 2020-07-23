@@ -91,7 +91,7 @@ def content_model(movie_list,top_n=10):
     movie_indices2 = [i[0] for i in sim_scores2]
     movie_indices3 = [i[0] for i in sim_scores3]
 
-    result=[data['title'].iloc[movie_indices1][0:4],data['title'].iloc[movie_indices2][0:3],data['title'].iloc[movie_indices3][0:3]]
+    result=[data['title'].iloc[movie_indices1][0:5],data['title'].iloc[movie_indices2][0:3],data['title'].iloc[movie_indices3][0:3]]
 
     recommended_movies = []
     for i in list(pd.concat(result,axis=0)):
