@@ -48,7 +48,7 @@ def content_model(movie_list,top_n=10):
         Titles of the top-n movie recommendations to the user.
 
     """
-    data = data_preprocessing(27000)
+    data = data_preprocessing(50000)
     tfidf = TfidfVectorizer(stop_words='english')
     #merge_ratings_movies['plot_keywords'].fillna('')
     tfidf_matrix = tfidf.fit_transform(data['keyWords'])
@@ -59,10 +59,10 @@ def content_model(movie_list,top_n=10):
 
     #merge_ratings_movies = merge_ratings_movies.drop('timestamp', axis=1)
     # Import linear_kernel
-    from sklearn.metrics.pairwise import linear_kernel
+    #from sklearn.metrics.pairwise import linear_kernel
 
     # Compute the cosine similarity matrix
-    lin_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
+    lin_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
 
     indices = pd.Series(data['title']).drop_duplicates()
     # getting the indexes
@@ -91,7 +91,7 @@ def content_model(movie_list,top_n=10):
     movie_indices2 = [i[0] for i in sim_scores2]
     movie_indices3 = [i[0] for i in sim_scores3]
 
-    result=[data['title'].iloc[movie_indices1][0:5],data['title'].iloc[movie_indices2][0:4],data['title'].iloc[movie_indices3][0:4]]
+    result=[data['title'].iloc[movie_indices1][0:4],data['title'].iloc[movie_indices2][0:3],data['title'].iloc[movie_indices3][0:3]]
 
     recommended_movies = []
     for i in list(pd.concat(result,axis=0)):
