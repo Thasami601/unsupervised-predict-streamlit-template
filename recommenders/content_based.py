@@ -31,6 +31,7 @@ def data_preprocessing(subset_size):
     return movies_subset
 # !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
 # You are, however, encouraged to change its content.  
+
 def content_model(movie_list,top_n=10):
     """Performs Content filtering based upon a list of movies supplied
        by the app user.
@@ -48,21 +49,21 @@ def content_model(movie_list,top_n=10):
         Titles of the top-n movie recommendations to the user.
 
     """
-    data = data_preprocessing(50000)
+    data = data_preprocessing(40000)
     tfidf = TfidfVectorizer(stop_words='english')
     #merge_ratings_movies['plot_keywords'].fillna('')
     tfidf_matrix = tfidf.fit_transform(data['keyWords'])
     #tfidf_matrix.shape
 
     #merge_ratings_movies.head(2)
-    #tfidf.get_feature_names()[5000:5010]
+    tfidf.get_feature_names()[5000:5010]
 
     #merge_ratings_movies = merge_ratings_movies.drop('timestamp', axis=1)
     # Import linear_kernel
     from sklearn.metrics.pairwise import linear_kernel
 
     # Compute the cosine similarity matrix
-    lin_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
+    lin_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
 
     indices = pd.Series(data['title']).drop_duplicates()
     # getting the indexes
@@ -91,11 +92,21 @@ def content_model(movie_list,top_n=10):
     movie_indices2 = [i[0] for i in sim_scores2]
     movie_indices3 = [i[0] for i in sim_scores3]
 
-    result=[data['title'].iloc[movie_indices1][0:5],data['title'].iloc[movie_indices2][0:3],data['title'].iloc[movie_indices3][0:3]]
+    
+    list_of_movie_indexes = [idx1,idx2,idx3]
+    movie_indices1 = [i for i in movie_indices1 if i not in list_of_movie_indexes]
+    movie_indices2 = [i for i in movie_indices2 if i not in list_of_movie_indexes]
+    movie_indices3 = [i for i in movie_indices3 if i not in list_of_movie_indexes]
+
+         
+    result=[data['title'].iloc[movie_indices1][1:6],data['title'].iloc[movie_indices2][1:4],data['title'].iloc[movie_indices3][1:3]]
 
     recommended_movies = []
     for i in list(pd.concat(result,axis=0)):
-      if i not in movie_list:
+      #if i not in movie_list:
         recommended_movies.append(i)
+    
+
+    
 # Return the top 10 most similar movies
     return recommended_movies
