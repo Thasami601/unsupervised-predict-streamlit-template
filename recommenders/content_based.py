@@ -49,7 +49,7 @@ def content_model(movie_list,top_n=10):
         Titles of the top-n movie recommendations to the user.
 
     """
-    data = data_preprocessing(40000)
+    data = data_preprocessing(27000)
     tfidf = TfidfVectorizer(stop_words='english')
     #merge_ratings_movies['plot_keywords'].fillna('')
     tfidf_matrix = tfidf.fit_transform(data['keyWords'])

@@ -111,6 +111,8 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
+        st.markdown(open('resources/Winningsolution.md').read())
+        
     if page_selection== "Data visualisation":
         st.title("How Our Movie Data Behaves")
         from PIL import Image
